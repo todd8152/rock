@@ -1,0 +1,49 @@
+###
+---
+
+- name: 'Pull default Logstash Docker image'
+  docker_image:
+    name: "docker.elastic.co/logstash/logstash:{{ elastic_ver }}"
+
+#- name: 'Build custom logstash Docker image'
+#  docker_image:
+#    path: 'files'
+#    name: rock/logstash
+#    tag: 'latest'
+#    buildargs:
+#      LOGSTASH_VERSION: {{ elastic_ver }}
+
+- name: 'Create logstash group'
+  group:
+    name: {{ logstash_group }}
+    state: present
+
+- name: 'Add logstash user'
+  user:
+    name: {{ logstash_user }}
+    comment: "User for managing logstash related things"
+    group: {{ logstash_group }}
+
+- name: "Create Logstash data directory"
+  file:
+    group: root
+    mode: u=rw,g=r,o=r
+    owner: root
+    path: "{{ logstash_data_dir }}"
+    state: directory
+
+- name: "Create Logstash configuration directory"
+  file:
+    group: root
+    mode: u=rw,g=r,o=r
+    owner: root
+    path: "{{ logstash_pipeline_dir }}"
+    state: directory
+
+- name: "Create Logstash log directory"
+  file:
+    group: {{ logstash_group }}
+    mode: u=rw,g=r,o=r
+    owner: {{ logstash_user }}
+    path: "{{ logstash_log_dir }}"
+    state: directory
