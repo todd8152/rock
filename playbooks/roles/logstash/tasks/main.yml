@@ -1,9 +1,4 @@
 ---
 
-- include_tasks: 'logstash_bare-metal.yml'
-  when: not containerized_install
-
 - include_tasks: 'logstash_container.yml'
-  when: containerized_install
-
-- include_tasks: 'logstash_configuration.yml'
+- include_tasks: 'pipeline_configuration.yml'

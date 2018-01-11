@@ -5,19 +5,19 @@
 - name: "Install Bro-Kafka configuration for Logstash"
   copy:
     dest: "{{ logstash_pipeline_dir }}/kafka-bro.conf"
-    group: "{{ logstash_group }}"
-    mode: 416
-    owner: "{{ logstash_user }}"
-    src: logstash-kafka-bro.conf
+    group: 1000
+    mode: u+rw,g+rw,o+r
+    owner: 1000
+    src: 'logstash-kafka-bro.conf'
   notify: "Restart Logstash"
   when: "with_bro and with_kafka"
 
 - name: "Install Suricata-Kafka configuration for Logstash"
   copy:
-    dest: ""{{ logstash_pipeline_dir }}/kafka-suricata.conf"
-    group: "{{ logstash_group }}"
-    mode: 416
-    owner: "{{ logstash_user }}"
+    dest: "{{ logstash_pipeline_dir }}/kafka-suricata.conf"
+    group: 1000
+    mode: u+rw,g+rw,o+r
+    owner: 1000
     src: 'logstash-kafka-suricata.conf'
   notify: "Restart Logstash"
   when: "with_suricata and with_kafka"
@@ -25,9 +25,9 @@
 - name: "Install FSF-Kafka configuration for Logstash"
   copy:
     dest: "{{ logstash_pipeline_dir }}/kafka-fsf.conf"
-    group: "{{ logstash_group }}"
-    mode: 416
-    owner: "{{ logstash_user }}"
+    group: 1000
+    mode: u+rw,g+rw,o+r
+    owner: 1000
     src: 'logstash-kafka-fsf.conf'
   notify: "Restart Logstash"
   when: "with_fsf and with_kafka"
