@@ -1,0 +1,9 @@
+- pipeline.id: "bro-kafka"
+  path.config: "/usr/share/logstash/pipeline/bro/"
+
+- pipeline.id: "suricata-kafka"
+  path.config: "/usr/share/logstash/pipeline/suricata/"
+
+- pipeline.id: "fsf-kakfa"
+  path.config: "/usr/share/logstash/pipeline/fsf/"
+
