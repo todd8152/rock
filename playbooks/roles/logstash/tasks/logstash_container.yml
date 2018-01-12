@@ -27,7 +27,7 @@
 
 - name: "Create Logstash data directory"
   file:
-    group: 1000 
+    group: 1000
     mode: u+rw,g+rw
     owner: 1000
     path: "{{ logstash_data_dir }}"
@@ -48,6 +48,24 @@
     owner: 1000
     path: "{{ logstash_log_dir }}"
     state: directory
+
+- name: "Copy pipelines.yml"
+  copy:
+    dest: "{{ logstash_config_dir }}/pipelines.yml"
+    group: 1000
+    mode: u+rw,g+rw
+    owner: 1000
+    src: 'pipelines.yml'
+  notify: 'Restart Logstash'
+
+- name: "Copy pipline folder"
+  copy:
+    dest: "{{ logstash_pipeline_dir }}"
+    group: 1000
+    mode: u+rw,g+rw
+    owner: 1000
+    src: "files/pipeline/"
+  notify: "Restart Logstash"
 
 #- name: "Configure logging"
 #  template:
